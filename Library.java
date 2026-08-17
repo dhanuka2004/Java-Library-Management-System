@@ -83,6 +83,15 @@ public class Library {
         System.out.println("-----------------------\n");
     }
 
+    // Helper method for the GUI to read the book list
+    public List<Book> getBooks() {
+        return this.books;
+    }
+
+    // Helper method for the GUI to read the member list
+    public List<Member> getMembers() {
+        return this.members;
+    }
    
 
 }

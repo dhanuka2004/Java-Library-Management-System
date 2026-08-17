@@ -156,7 +156,7 @@ public class LibraryDatabase {
             while (rs.next()) {
                 String memberId = rs.getString("memberId");
                 String name = rs.getString("name");
-                memberList.add(new Member(memberId, name));
+                memberList.add(new Member(name, memberId));
             }
             
         } catch (SQLException e) {
