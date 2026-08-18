@@ -13,7 +13,7 @@ public class LibraryDatabase {
     // trustServerCertificate=true is required for local testing without SSL setup
     private static final String DB_URL = "jdbc:sqlserver://localhost\\MSSQLSERVER:1433;databaseName=LLLibraryDB;encrypt=true;trustServerCertificate=true;";
     private static final String USER = "sa";               // Default SQL Server admin user
-    private static final String PASS = "your password";  // Your SQL Server password
+    private static final String PASS = "123456789";  // Your SQL Server password
 
     // 1. Establish a connection to SQL Server
     private Connection connect() {
@@ -156,7 +156,7 @@ public class LibraryDatabase {
             while (rs.next()) {
                 String memberId = rs.getString("memberId");
                 String name = rs.getString("name");
-                memberList.add(new Member(name, memberId));
+                memberList.add(new Member(memberId,name ));
             }
             
         } catch (SQLException e) {

@@ -2,7 +2,7 @@ public class Member {
     private String name;
     private String memberId;
 
-    public Member(String name, String memberId) {
+    public Member(String memberId, String name) {
         this.name = name;
         this.memberId = memberId;
     }
@@ -14,4 +14,5 @@ public class Member {
     public String getName() { 
         return name; 
     }
+
 }
