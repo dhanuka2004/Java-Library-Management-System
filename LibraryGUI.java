@@ -122,24 +122,52 @@ public class LibraryGUI {
 
         // --- 5. Button Actions ---
         btnBorrow.addActionListener(e -> {
-            String isbn = borrowIsbn.getText().trim();
-            String memId = borrowMemberId.getText().trim();
-            if(!isbn.isEmpty() && !memId.isEmpty()) {
-                library.borrowBook(isbn, memId); 
-                displayArea.setText("✅ Attempted to borrow book: " + isbn + "\nCheck terminal for status.");
-                borrowIsbn.setText("");
-                if(currentUserRole.equals("Librarian")) borrowMemberId.setText("");
-            }
+           String isbn = borrowIsbn.getText().trim();
+           String memId = borrowMemberId.getText().trim();
+    
+           if (isbn.isEmpty() || memId.isEmpty()) {
+              JOptionPane.showMessageDialog(frame, "Please enter both ISBN and Member ID.", "Input Error", JOptionPane.WARNING_MESSAGE);
+              return;
+          }
+
+          // Capture the exact text message returned from Library.java
+          String resultMessage = library.borrowBook(isbn, memId); 
+
+          // Display the message directly inside the GUI!
+          displayArea.setText(""); // Clears the screen
+          displayArea.append(resultMessage + "\n");
+    
+          // If the borrow was successful, clear the input boxes
+          if (resultMessage.contains("SUCCESS")) {
+             borrowIsbn.setText("");
+              if (currentUserRole.equals("Librarian")) {
+                 borrowMemberId.setText("");
+              }
+           }
         });
 
         btnReturn.addActionListener(e -> {
-            String isbn = returnIsbn.getText().trim();
-            if(!isbn.isEmpty()) {
-                library.returnBook(isbn); 
-                displayArea.setText("🔄 Attempted to return book: " + isbn + "\nCheck terminal for status.");
-                returnIsbn.setText("");
-            }
-        });
+             // 1. Get the ISBN from the text box
+             String isbn = returnIsbn.getText().trim();
+    
+             // 2. Check if the user left it blank
+             if (isbn.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Please enter an ISBN to return the book.", "Input Error", JOptionPane.WARNING_MESSAGE);
+                return;
+             }
+
+             // 3. Call your updated Library.java method and capture the text response
+             String resultMessage = library.returnBook(isbn); 
+
+             // 4. Display the message directly inside the GUI's text area!
+             displayArea.setText(""); // Clears the previous screen text
+             displayArea.append(resultMessage + "\n");
+    
+             // 5. If the return was successful, automatically clear the typing box
+             if (resultMessage.contains("SUCCESS")) {
+                 returnIsbn.setText("");
+         }
+  });
 
         btnViewBooks.addActionListener(e -> {
             displayArea.setText("--- Available Books ---\n\n");

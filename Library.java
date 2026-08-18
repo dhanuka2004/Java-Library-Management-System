@@ -24,7 +24,7 @@ public class Library {
         db.addMember(member);
     }
 
-    public boolean borrowBook(String isbn, String memberId) {
+    public String borrowBook(String isbn, String memberId) {
         String cleanIsbn = isbn.trim();
         String cleanMemberId = memberId.trim();
         
@@ -54,18 +54,19 @@ public class Library {
                 book.setAvailable(false);
                 db.updateBookStatus(cleanIsbn, false);
                 System.out.println("SUCCESS: " + memberOpt.get().getName() + " borrowed '" + book.getTitle() + "'");
-                return true;
+                return "✅ SUCCESS: " + memberOpt.get().getName() + " borrowed '" + book.getTitle() + "'";
+            
             } else {
                 System.out.println("UNAVAILABLE: '" + book.getTitle() + "' is currently borrowed out.");
-                return false;
+                return "❌ UNAVAILABLE: '" + book.getTitle() + "' is currently borrowed out.";
             }
         } else {
             System.out.println("ERROR: Invalid Book ISBN or Member ID.");
-            return false;
+            return "❌ ERROR: Invalid Book ISBN or Member ID.";
         }
     }
 
-    public boolean returnBook(String isbn) {
+    public String returnBook(String isbn) {
         String cleanIsbn = isbn.trim();
 
         Optional<Book> bookOpt = books.stream()
@@ -78,14 +79,14 @@ public class Library {
                 book.setAvailable(true);
                 db.updateBookStatus(cleanIsbn, true);
                 System.out.println("SUCCESS: Returned '" + book.getTitle() + "'");
-                return true;
+                return "✅ SUCCESS: Returned '" + book.getTitle() + "'";
             } else {
                 System.out.println("INFO: This book was not borrowed.");
-                return false;
+                return "❌ INFO: This book was not borrowed.";
             }
         } else {
             System.out.println("ERROR: Book not found in library.");
-            return false;
+            return "❌ ERROR: Book not found in library.";
         }
     }
 

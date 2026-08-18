@@ -44,6 +44,9 @@ public class LoginGUI {
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setFont(new Font("SansSerif", Font.BOLD, 14));
 
+        //JButton btnRegister = new JButton("Register New Member");
+
+
         formPanel.add(roleLabel);
         formPanel.add(roleComboBox);
         formPanel.add(userLabel);
@@ -52,6 +55,8 @@ public class LoginGUI {
         formPanel.add(passText);
         formPanel.add(loginButton);
         formPanel.add(cancelButton);
+        //formPanel.add(btnRegister);
+
 
         // --- 3. Live Clock Panel (NEW) ---
         JLabel timeLabel = new JLabel();
@@ -94,6 +99,44 @@ public class LoginGUI {
                 JOptionPane.showMessageDialog(loginFrame, "Invalid Username or Password!", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+       /*  btnRegister.addActionListener(e -> {
+    // 1. Create the text fields for the pop-up form
+    JTextField newIdField = new JTextField();
+    JTextField newNameField = new JTextField();
+    JPasswordField newPasswordField = new JPasswordField();
+    
+    // 2. Build the visual form
+    Object[] registrationForm = {
+        "Full Name:", newNameField,
+        "Desired Member ID (Username):", newIdField,
+        "Password:", newPasswordField
+    };
+    
+    // 3. Show the pop-up to the user
+    int option = JOptionPane.showConfirmDialog(null, registrationForm, "Sign Up for Library", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    
+    // 4. If they clicked OK, process the data
+    if (option == JOptionPane.OK_OPTION) {
+        String newName = newNameField.getText().trim();
+        String newId = newIdField.getText().trim();
+        String newPass = new String(newPasswordField.getPassword()).trim();
+        
+        if (newName.isEmpty() || newId.isEmpty() || newPass.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Instantiate your database class to save the user
+            LibraryDatabase db = new LibraryDatabase();
+            boolean success = db.registerNewMemberWithPassword(newId, newName, newPass);
+            
+            if (success) {
+                JOptionPane.showMessageDialog(null, "Registration Successful! Welcome, " + newName + ".\nYou can now log in.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Registration Failed. That Member ID might already exist.", "Database Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    });*/
 
         cancelButton.addActionListener(e -> System.exit(0));
 

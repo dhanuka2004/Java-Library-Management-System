@@ -166,4 +166,23 @@ public class LibraryDatabase {
         return memberList;
     }
 
+    // Add this method inside your LibraryDatabase class
+    public boolean registerNewMemberWithPassword(String memberId, String name, String password) {
+         // Make sure your table name and column names match exactly what is in SQL!
+         String sql = "INSERT INTO members (memberId, name, password) VALUES (?, ?, ?)";
+         try (Connection conn = this.connect();
+               PreparedStatement pstmt = conn.prepareStatement(sql)) {
+         
+               pstmt.setString(1, memberId);
+               pstmt.setString(2, name);
+               pstmt.setString(3, password);
+        
+               int rowsAffected = pstmt.executeUpdate();
+               return rowsAffected > 0; // Returns true if the save was successful
+        
+    } catch (SQLException e) {
+        System.out.println("Registration Database Error: " + e.getMessage());
+        return false;
+        }
+    }
 }
